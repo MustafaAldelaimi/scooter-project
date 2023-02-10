@@ -63,7 +63,7 @@ describe('scooter methods', () => {
   })
 
   //dock method
-  describe('dock', () => {
+  describe('dock()', () => {
     beforeEach(() => {
       scooter.rent();
     });
@@ -76,16 +76,33 @@ describe('scooter methods', () => {
   });
 
   //requestRepair method
-  test('requestRepair()', async () => {
-    scooter.isBroken = true
-    await scooter.requestRepair()
-    expect(scooter.isBroken).toBe(false)
+  describe('requestRepair()', () => {
+    test('repairs scooter', async () => {
+      scooter.isBroken = true
+      await scooter.requestRepair()
+      expect(scooter.isBroken).toBe(false)
+    })
+    test('logs "repair completed" to the console', async () => {
+      scooter.isBroken = true
+      await scooter.requestRepair()
+      expect(logSpy).toHaveBeenCalledWith("repair completed")
+    })
   })
+  
 
   //charge method
-  test("charge", async () => {
-    scooter.charge = 80
-    await scooter.charge(); // we need to wait for the charge!
-    expect(newScooter.charge).toBe(100);
-});
+  describe('charge()', () => {
+    it('fully charges scooter', async () => {
+      scooter.charge = 80
+      await scooter.charge(); // we need to wait for the charge!
+      expect(newScooter.charge).toBe(100);
+    });
+    
+    it('logs something to the console', async () => {
+      scooter.charge = 80
+      await scooter.charge(); // we need to wait for the charge!
+      expect(logSpy).toHaveBeenCalled();
+    })
+  })
+  
 })
