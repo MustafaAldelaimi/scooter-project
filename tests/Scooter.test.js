@@ -64,11 +64,9 @@ describe('scooter methods', () => {
 
   //dock method
   describe('dock()', () => {
-    beforeEach(() => {
-      scooter.rent();
-    });
 
     it('returns the scooter to the station', () => {
+      scooter.rent();
       scooter.dock('Lumbridge');
       expect(scooter.station).toBe('Lumbridge');
       expect(scooter.user).toBe(null);
