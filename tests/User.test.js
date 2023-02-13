@@ -33,7 +33,7 @@ describe('User', () => {
 // test logout
           describe('logout', () => {
                     it ('should log user out', () => {
-                              user.login(password)
+                              user.login('password')
                               user.logout()
                               expect(user.loggedIn).toBe(false)
                     })

@@ -46,6 +46,11 @@ describe('scooter methods', () => {
 
   //rent method
   describe('rent()', () => {
+    beforeEach(() => {
+      scooter.isBroken = false
+      scooter.charge = 100
+    })
+
     it('throws an error if the scooter needs to charge', () => {
       scooter.charge = 10;
       expect(() => scooter.rent()).toThrow('scooter needs to charge');
@@ -56,8 +61,8 @@ describe('scooter methods', () => {
     });
 
     it('checks out the scooter to the user', () => {
-      scooter.rent();
-      expect(scooter.user).toBeDefined();
+      scooter.rent('Jim');
+      expect(scooter.user).toBe('Jim');
       expect(scooter.station).toBe(null);
     });
   })
@@ -66,7 +71,7 @@ describe('scooter methods', () => {
   describe('dock()', () => {
 
     it('returns the scooter to the station', () => {
-      scooter.rent();
+      scooter.rent('Jim');
       scooter.dock('Lumbridge');
       expect(scooter.station).toBe('Lumbridge');
       expect(scooter.user).toBe(null);
@@ -90,16 +95,16 @@ describe('scooter methods', () => {
   
 
   //charge method
-  describe('charge()', () => {
-    it('fully charges scooter', async () => {
+  describe('recharge()', () => {
+    test("fully charges scooter", async () => {
       scooter.charge = 80
-      await scooter.charge(); // we need to wait for the charge!
-      expect(newScooter.charge).toBe(100);
-    });
+      await scooter.recharge(); // we need to wait for the charge!
+      expect(scooter.recharge).toBe(100);
+  });
     
     it('logs something to the console', async () => {
       scooter.charge = 80
-      await scooter.charge(); // we need to wait for the charge!
+      await scooter.recharge(); // we need to wait for the charge!
       const logSpy = jest.spyOn(console, 'log')
       expect(logSpy).toHaveBeenCalled();
     })
