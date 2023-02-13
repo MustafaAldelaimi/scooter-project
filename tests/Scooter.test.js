@@ -83,6 +83,7 @@ describe('scooter methods', () => {
     test('logs "repair completed" to the console', async () => {
       scooter.isBroken = true
       await scooter.requestRepair()
+      const logSpy = jest.spyOn(console, 'log')
       expect(logSpy).toHaveBeenCalledWith("repair completed")
     })
   })
@@ -99,6 +100,7 @@ describe('scooter methods', () => {
     it('logs something to the console', async () => {
       scooter.charge = 80
       await scooter.charge(); // we need to wait for the charge!
+      const logSpy = jest.spyOn(console, 'log')
       expect(logSpy).toHaveBeenCalled();
     })
   })
